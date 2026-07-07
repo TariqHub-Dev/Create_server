@@ -1,5 +1,6 @@
 package com.example
 
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.cio.*
 
@@ -9,4 +10,13 @@ fun main(args: Array<String>) {
     embeddedServer(CIO, port = port) {
         module()
     }.start(wait = true)
+}
+
+fun Application.module() {
+    configureDatabases()
+    configureSerialization()
+    configureHttp()
+    configureResources()
+    configureRpc()
+    configureRouting()
 }
