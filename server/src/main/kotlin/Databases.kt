@@ -4,19 +4,37 @@ import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.net.URI
 
 fun Application.configureDatabases() {
-    // Ambil URL dari sistem cloud, atau biarkan kosong jika belum ada
     val dbUrl = System.getenv("DATABASE_URL")
 
     if (dbUrl != null) {
-        // 1. Jika URL tersedia (jalan di Railway), konek ke Supabase
-        Database.connect(
-            url = "jdbc:$dbUrl", 
-            driver = "org.postgresql.Driver"
-        )
+        // Railway/Heroku DATABASE_URL biasanya berformat postgres://user:pass@host:port/db
+        try {
+            val uri = URI(dbUrl)
+            val userInfo = uri.userInfo.split(":")
+            val username = userInfo[0]
+            val password = userInfo[1]
+            val host = uri.host
+            val port = if (uri.port != -1) uri.port else 5432
+            val path = uri.path
+            val jdbcUrl = "jdbc:postgresql://$host:$port$path?sslmode=require"
+
+            Database.connect(
+                url = jdbcUrl,
+                driver = "org.postgresql.Driver",
+                user = username,
+                password = password
+            )
+        } catch (e: Exception) {
+            // Fallback jika parsing gagal
+            Database.connect(
+                url = "jdbc:postgresql://db.cjwlgoozwejzvwmmiosa.supabase.co:5432/postgres",
+                driver = "org.postgresql.Driver"
+            )
+        }
     } else {
-        // 2. Jika URL tidak ada (jalan di laptop/lokal), tetap pakai H2 untuk testing
         Database.connect(
             url = "jdbc:h2:file:./librarydb;DB_CLOSE_DELAY=-1;", 
             driver = "org.h2.Driver"

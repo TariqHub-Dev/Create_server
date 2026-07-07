@@ -1,19 +1,16 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level - %msg%n</pattern>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Hanya log ERROR untuk meminimalisir trafik log ke Railway -->
-    <root level="ERROR">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <!-- Matikan log dari library yang cerewet -->
-    <logger name="io.ktor" level="ERROR"/>
-    <logger name="io.netty" level="ERROR"/>
-    <logger name="org.eclipse.jetty" level="ERROR"/>
-    <logger name="Exposed" level="ERROR"/>
-    <logger name="com.zaxxer.hikari" level="ERROR"/>
+    <logger name="org.eclipse.jetty" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
+    <logger name="Exposed" level="WARN"/>
+    <logger name="com.zaxxer.hikari" level="WARN"/>
 </configuration>
