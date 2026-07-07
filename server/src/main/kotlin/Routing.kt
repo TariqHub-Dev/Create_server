@@ -97,11 +97,6 @@ fun Application.configureRouting() {
         put("/books/{id}") {
             val idParam = call.parameters["id"] ?: return@put
 
-            call.respond(
-                HttpStatusCode.BadRequest,
-                mapOf("error" to "ID tidak valid")
-            )
-
             try {
                 val updateBook = call.receive<Book>()
 
