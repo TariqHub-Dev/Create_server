@@ -37,4 +37,6 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
     testImplementation(libs.kotlinx.rpc.client)
+
+    implementation("org.postgresql:postgresql:42.6.0")
 }
