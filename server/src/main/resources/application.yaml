@@ -3,6 +3,7 @@ ktor:
     port: 8080
   application:
     modules:
+      - com.example.DatabasesKt.configureDatabases
       - com.example.HttpKt.configureHttp
       - com.example.SerializationKt.configureSerialization
       - com.example.RpcKt.configureRpc
