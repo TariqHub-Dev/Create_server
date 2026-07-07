@@ -7,10 +7,6 @@ fun main(args: Array<String>) {
     val port = System.getenv("PORT")?.toInt() ?: 8080
 
     embeddedServer(CIO, port = port) {
-        configureDatabases()
-        configureHttp()
-        configureSerialization()
-        configureResources()
-        configureRouting()
+        module()
     }.start(wait = true)
 }
