@@ -1,0 +1,306 @@
+{
+  "projectStructure": {
+    "formatVersion": "0.3.3",
+    "isPublishedAsRoot": "true",
+    "variants": [
+      {
+        "name": "debugApiElements",
+        "sourceSet": [
+          "javaMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "debugRuntimeElements",
+        "sourceSet": [
+          "javaMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "releaseApiElements",
+        "sourceSet": [
+          "javaMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "releaseRuntimeElements",
+        "sourceSet": [
+          "javaMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "androidNativeArm32ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "androidNativeArm64ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "androidNativeX64ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "androidNativeX86ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "iosArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "iosSimulatorArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "iosX64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "jsApiElements",
+        "sourceSet": [
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "jsRuntimeElements",
+        "sourceSet": [
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "jvmApiElements",
+        "sourceSet": [
+          "javaMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "jvmRuntimeElements",
+        "sourceSet": [
+          "javaMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "linuxArm64ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "linuxX64ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "macosArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "macosX64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "mingwX64ApiElements",
+        "sourceSet": [
+          "linuxMain",
+          "nativeMain",
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "tvosArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "tvosSimulatorArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "tvosX64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "wasmJsApiElements",
+        "sourceSet": [
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "wasmJsRuntimeElements",
+        "sourceSet": [
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "wasmWasiApiElements",
+        "sourceSet": [
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "wasmWasiRuntimeElements",
+        "sourceSet": [
+          "directMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "watchosArm32ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "watchosArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "watchosDeviceArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "watchosSimulatorArm64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      },
+      {
+        "name": "watchosX64ApiElements",
+        "sourceSet": [
+          "darwinMain",
+          "commonMain"
+        ]
+      }
+    ],
+    "sourceSets": [
+      {
+        "name": "commonMain",
+        "dependsOn": [],
+        "moduleDependency": [
+          "org.jetbrains.kotlin:kotlin-stdlib"
+        ],
+        "binaryLayout": "klib"
+      },
+      {
+        "name": "darwinMain",
+        "dependsOn": [
+          "commonMain"
+        ],
+        "moduleDependency": [],
+        "sourceSetCInteropMetadataDirectory": "darwinMain-cinterop",
+        "binaryLayout": "klib",
+        "hostSpecific": "true"
+      },
+      {
+        "name": "directMain",
+        "dependsOn": [
+          "commonMain"
+        ],
+        "moduleDependency": [
+          "org.jetbrains.kotlin:kotlin-stdlib"
+        ],
+        "binaryLayout": "klib"
+      },
+      {
+        "name": "javaMain",
+        "dependsOn": [
+          "commonMain"
+        ],
+        "moduleDependency": [
+          "org.jetbrains.kotlin:kotlin-stdlib",
+          "org.slf4j:slf4j-api",
+          "org.jetbrains.kotlinx:kotlinx-coroutines-slf4j"
+        ],
+        "binaryLayout": "klib"
+      },
+      {
+        "name": "linuxMain",
+        "dependsOn": [
+          "nativeMain"
+        ],
+        "moduleDependency": [],
+        "sourceSetCInteropMetadataDirectory": "linuxMain-cinterop",
+        "binaryLayout": "klib"
+      },
+      {
+        "name": "nativeMain",
+        "dependsOn": [
+          "directMain"
+        ],
+        "moduleDependency": [],
+        "sourceSetCInteropMetadataDirectory": "nativeMain-cinterop",
+        "binaryLayout": "klib"
+      }
+    ]
+  }
+}

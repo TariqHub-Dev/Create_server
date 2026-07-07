@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.RpcTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-03T08:24:21.879Z" hostname="PMMSQA" time="0.223">
+  <properties/>
+  <testcase name="testRpc" classname="com.example.RpcTest" time="0.223"/>
+  <system-out><![CDATA[2026-07-03 15:24:21.960 [DefaultDispatcher-worker-1 @call-context#14] INFO  io.ktor.test - No ktor.deployment.watch patterns specified, automatic reload is not active.
+2026-07-03 15:24:21.962 [DefaultDispatcher-worker-1 @call-context#14] INFO  io.ktor.test - Application started in 0.002 seconds.
+2026-07-03 15:24:21.963 [DefaultDispatcher-worker-6 @coroutine#16] INFO  io.ktor.test - Responding at http://localhost:80
+2026-07-03 15:24:21.963 [DefaultDispatcher-worker-6 @coroutine#16] INFO  io.ktor.test - Responding at https://localhost:443
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
