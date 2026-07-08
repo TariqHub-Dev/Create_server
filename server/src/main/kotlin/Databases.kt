@@ -20,16 +20,24 @@ fun Application.configureDatabases() {
                 val uri = URI(cleanUrl)
                 val userInfo = uri.userInfo?.split(":")
                 
-                jdbcUrl = "jdbc:postgresql://${uri.host}:${if (uri.port != -1) uri.port else 5432}${uri.path}?sslmode=require"
+                // PERBAIKAN: Gunakan port 5432 untuk akses langsung (Direct Connection)
+                // Port 6543 biasanya adalah Transaction Pooler yang bersifat Read-Only untuk perintah DDL (CREATE TABLE)
+                val host = uri.host
+                val port = 5432 
+                val dbName = if (uri.path.isNullOrBlank() || uri.path == "/") "/postgres" else uri.path
+                
+                jdbcUrl = "jdbc:postgresql://$host:$port$dbName?sslmode=require"
                 username = userInfo?.getOrNull(0)
                 password = userInfo?.getOrNull(1)
+                
             } catch (e: Exception) {
                 jdbcUrl = if (dbUrl.startsWith("jdbc:")) dbUrl else "jdbc:$dbUrl"
             }
             
             maximumPoolSize = 3
             connectionTimeout = 30000
-            leakDetectionThreshold = 2000
+            // Pastikan tidak dipaksa menjadi read-only
+            isReadOnly = false
         }
         HikariDataSource(config)
     } else {
@@ -43,6 +51,7 @@ fun Application.configureDatabases() {
 
     Database.connect(dataSource)
 
+    // Jalankan pembuatan tabel di dalam transaksi yang bisa menulis (RW)
     transaction {
         SchemaUtils.create(BookTable)
     }
