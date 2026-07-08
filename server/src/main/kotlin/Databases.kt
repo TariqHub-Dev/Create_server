@@ -9,34 +9,40 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import java.net.URI
 
 fun Application.configureDatabases() {
-    val dbUrl = System.getenv("DATABASE_URL")
+    val dbUrl = System.getenv("DATABASE_URL")?.trim()
 
     val dataSource = if (!dbUrl.isNullOrBlank()) {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
             
-            // Railway/Heroku DATABASE_URL: postgres://user:pass@host:port/db
-            val uri = URI(dbUrl)
-            val userInfo = uri.userInfo?.split(":")
-            
-            // JDBC URL format: jdbc:postgresql://host:port/db
-            jdbcUrl = "jdbc:postgresql://${uri.host}:${if (uri.port != -1) uri.port else 5432}${uri.path}?sslmode=require"
-            username = userInfo?.getOrNull(0)
-            password = userInfo?.getOrNull(1)
+            try {
+                // Parsing DATABASE_URL (format: postgres://user:pass@host:port/db)
+                val uri = URI(dbUrl)
+                val userInfo = uri.userInfo?.split(":")
+                
+                // Supabase membutuhkan sslmode=require
+                jdbcUrl = "jdbc:postgresql://${uri.host}:${if (uri.port != -1) uri.port else 5432}${uri.path}?sslmode=require"
+                username = userInfo?.getOrNull(0)
+                password = userInfo?.getOrNull(1)
+                
+                println("DATABASE_URL terdeteksi. Menghubungkan ke host: ${uri.host}")
+            } catch (e: Exception) {
+                // Fallback jika format sudah berupa JDBC
+                jdbcUrl = if (dbUrl.startsWith("jdbc:")) dbUrl else "jdbc:$dbUrl"
+                println("Menggunakan fallback JDBC URL")
+            }
             
             maximumPoolSize = 3
-            isAutoCommit = false
-            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-            validate()
+            connectionTimeout = 30000
+            leakDetectionThreshold = 2000
         }
         HikariDataSource(config)
     } else {
+        println("DATABASE_URL tidak ditemukan. Menggunakan H2 lokal.")
         val config = HikariConfig().apply {
             driverClassName = "org.h2.Driver"
             jdbcUrl = "jdbc:h2:file:./librarydb;DB_CLOSE_DELAY=-1;"
             maximumPoolSize = 3
-            isAutoCommit = false
-            validate()
         }
         HikariDataSource(config)
     }
