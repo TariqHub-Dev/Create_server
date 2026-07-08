@@ -16,20 +16,15 @@ fun Application.configureDatabases() {
             driverClassName = "org.postgresql.Driver"
             
             try {
-                // Parsing DATABASE_URL (format: postgres://user:pass@host:port/db)
-                val uri = URI(dbUrl)
+                val cleanUrl = dbUrl.replace("jdbc:", "")
+                val uri = URI(cleanUrl)
                 val userInfo = uri.userInfo?.split(":")
                 
-                // Supabase membutuhkan sslmode=require
                 jdbcUrl = "jdbc:postgresql://${uri.host}:${if (uri.port != -1) uri.port else 5432}${uri.path}?sslmode=require"
                 username = userInfo?.getOrNull(0)
                 password = userInfo?.getOrNull(1)
-                
-                println("DATABASE_URL terdeteksi. Menghubungkan ke host: ${uri.host}")
             } catch (e: Exception) {
-                // Fallback jika format sudah berupa JDBC
                 jdbcUrl = if (dbUrl.startsWith("jdbc:")) dbUrl else "jdbc:$dbUrl"
-                println("Menggunakan fallback JDBC URL")
             }
             
             maximumPoolSize = 3
@@ -38,7 +33,6 @@ fun Application.configureDatabases() {
         }
         HikariDataSource(config)
     } else {
-        println("DATABASE_URL tidak ditemukan. Menggunakan H2 lokal.")
         val config = HikariConfig().apply {
             driverClassName = "org.h2.Driver"
             jdbcUrl = "jdbc:h2:file:./librarydb;DB_CLOSE_DELAY=-1;"

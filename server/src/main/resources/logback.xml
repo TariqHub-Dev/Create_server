@@ -5,14 +5,16 @@
         </encoder>
     </appender>
 
-    <!-- Hanya log WARN/ERROR untuk meminimalisir trafik log ke Railway -->
-    <root level="WARN">
+    <!-- Set global level to ERROR to avoid log flooding on Railway -->
+    <root level="ERROR">
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="io.ktor" level="WARN"/>
-    <logger name="io.netty" level="WARN"/>
-    <logger name="org.eclipse.jetty" level="WARN"/>
-    <logger name="Exposed" level="WARN"/>
-    <logger name="com.zaxxer.hikari" level="WARN"/>
+    <!-- Specifically silence common verbose libraries -->
+    <logger name="io.ktor" level="ERROR"/>
+    <logger name="io.netty" level="ERROR"/>
+    <logger name="org.eclipse.jetty" level="ERROR"/>
+    <logger name="org.jetbrains.exposed" level="ERROR"/>
+    <logger name="com.zaxxer.hikari" level="ERROR"/>
+    <logger name="org.postgresql" level="ERROR"/>
 </configuration>
