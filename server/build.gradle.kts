@@ -26,20 +26,19 @@ dependencies {
     implementation(libs.openfolder.kotlinAsyncapiKtor)
     implementation(project(":core"))
 
-    // Exposed Core & DAO untuk manajemen SQL ala Kotlin
+    // Exposed Core & DAO
     implementation("org.jetbrains.exposed:exposed-core:0.50.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.50.0")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.50.0")
 
-    // Driver untuk H2 Database
+    // Driver Databases
     implementation("com.h2database:h2:2.2.224")
+    implementation("org.postgresql:postgresql:42.7.3")
 
-    // HikariCP untuk Connection Pooling
+    // HikariCP untuk Connection Pooling (Penting untuk stabilitas Cloud)
     implementation("com.zaxxer:HikariCP:5.1.0")
 
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
     testImplementation(libs.kotlinx.rpc.client)
-
-    implementation("org.postgresql:postgresql:42.6.0")
 }
