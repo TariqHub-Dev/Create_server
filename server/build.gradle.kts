@@ -34,6 +34,9 @@ dependencies {
     // Driver untuk H2 Database
     implementation("com.h2database:h2:2.2.224")
 
+    // HikariCP untuk Connection Pooling
+    implementation("com.zaxxer:HikariCP:5.1.0")
+
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
     testImplementation(libs.kotlinx.rpc.client)
